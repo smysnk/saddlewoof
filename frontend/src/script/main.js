@@ -51,7 +51,6 @@ require([
     'controller/admin/dashboard',
     'controller/principle',
     'controller/front_page',
-    'provider/resource',
     'service/service',
     'filter/unsafe',
 ], function (Keycloak, angular, app) {
