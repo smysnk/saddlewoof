@@ -17,7 +17,7 @@ source.imageDir = "#{source.baseDir}/image"
 source.fontDir = "#{source.baseDir}/font"
 
 target = {}
-target.baseDir = 'docker/var/www'
+target.baseDir = 'docker-web/var/www'
 
 alpha = {}
 alpha.baseDir = "#{target.baseDir}/alpha"
