@@ -56,10 +56,7 @@ define([
             '$httpProvider',
             '$locationProvider',
             'RestangularProvider',
-            '$resourceProvider',
-            function($provide, $urlRouterProvider, $stateProvider, $httpProvider, $locationProvider, RestangularProvider, $resourceProvider) {
-
-                var resource = $resourceProvider.$get()
+            function($provide, $urlRouterProvider, $stateProvider, $httpProvider, $locationProvider, RestangularProvider) {
 
                 RestangularProvider.setBaseUrl('/api/');            
                 RestangularProvider.addRequestInterceptor(function (element, operation, what, url) {
