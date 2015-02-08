@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.psidox.saddlewoof</groupId>
+    <artifactId>solution</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <keycloak.apache.httpcomponents.version>4.1.2</keycloak.apache.httpcomponents.version>
+        <resteasy.version>2.3.7.Final</resteasy.version>
+        <resteasy.version.eap.6.3>2.3.7.Final</resteasy.version.eap.6.3>
+        <resteasy.version.latest>3.0.8.Final</resteasy.version.latest>
+        <hibernate.javax.persistence.version>1.0.1.Final</hibernate.javax.persistence.version>
+        <hibernate.entitymanager.version>4.0.1.Final</hibernate.entitymanager.version>
+        <wildfly.version>8.0.0.Final</wildfly.version>
+        <jboss.logging.version>3.1.1.GA</jboss.logging.version>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+
+        <jboss.as.plugin.version>7.3.Final</jboss.as.plugin.version>
+        <jboss.bom.version>8.0.0.Final</jboss.bom.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <compiler.plugin.version>2.3.2</compiler.plugin.version>
+        <surefire.plugin.version>2.4.3</surefire.plugin.version>
+        <war.plugin.version>2.1.1</war.plugin.version>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <as7deploy.hostname>localhost</as7deploy.hostname>
+
+        <version.arquillian_core>1.1.2.Final</version.arquillian_core>
+        <version.arquillian.warp>1.0.0.Alpha3</version.arquillian.warp>
+        <version.arquillian.shrinkwrap>1.2.2</version.arquillian.shrinkwrap>
+        <version.arquillian.shrinkwrap.resolvers>2.0.0</version.arquillian.shrinkwrap.resolvers>
+        <version.arquillian.extension.persistence>1.0.0.Final-SNAPSHOT</version.arquillian.extension.persistence>
+        <version.arquillian.extension.jacoco>1.0.0.Alpha6</version.arquillian.extension.jacoco>
+        <jacoco.version>0.6.5.201403032054</jacoco.version>
+    </properties>
+
+    <modules>
+        <module>web</module>
+        <module>sensor</module>
+    </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-7.0</artifactId>
+                <version>1.0.0.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>jboss-javaee-7.0-with-all</artifactId>
+                <version>${jboss.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.arquillian_core}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Regular Deps -->
+
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-core</artifactId>
+                <version>1.0-beta-1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-model-api</artifactId>
+                <version>1.0-beta-1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-authentication-api</artifactId>
+                <version>1.0-beta-1</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <!-- Start -->
+
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${jboss.logging.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.psidox.biggerbear</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Internal -->
+
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jaxrs</artifactId>
+                <version>3.0.7.Final</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.picketbox</groupId>
+                <artifactId>picketbox</artifactId>
+                <version>4.0.7.Final</version>
+            </dependency>
+
+
+            <!-- Now we declare any tools needed -->
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-search-orm</artifactId>
+                <version>1.9.12</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Scope: Testing -->
+
+            <dependency>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-depchain</artifactId>
+                <version>${version.arquillian.shrinkwrap}</version>
+                <scope>test</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                <artifactId>shrinkwrap-resolver-depchain</artifactId>
+                <version>${version.arquillian.shrinkwrap.resolvers}</version>
+                <scope>test</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <scope>test</scope>
+                <version>4.10</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-persistence-core</artifactId>
+                <version>${version.arquillian.extension.persistence}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-persistence-dbunit</artifactId>
+                <version>${version.arquillian.extension.persistence}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-jacoco</artifactId>
+                <version>${version.arquillian.extension.jacoco}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jacoco</groupId>
+                <artifactId>org.jacoco.core</artifactId>
+                <version>${jacoco.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.easytesting</groupId>
+                <artifactId>fest-assert</artifactId>
+                <version>1.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>1.7.5</version>
+            </dependency>
+
+            <!-- Other -->
+
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-arquillian-container-managed</artifactId>
+                <version>8.0.0.Final</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-arquillian-container-remote</artifactId>
+                <version>8.0.0.Final</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${compiler.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>snapshots</id>
+            <url>https://nexus.psidox.com/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+
+
+</project>

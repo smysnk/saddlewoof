@@ -1,0 +1,26 @@
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <div class="logo">SaddleWoof</div>
+
+        <div class="navbar-header">                    
+            <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-collapse" style="padding: 20px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav navbar-right">
+                <li data-ui-sref-active="active"><a ui-sref="user.profile">PROFILE</a></li>
+                <li data-ui-sref-active="active"><a ui-sref="user.map">MAP</a></li>
+                <li><a ui-sref="admin.dashboard" ng-if="$keycloak.hasRealmRole('admin')">ADMIN</a></li>
+                <li><a href="" ng-click="$keycloak.logout()" ng-if="$keycloak.authenticated">LOGOUT</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div ui-view style="position: relative; width: 100%; height: 100%;"></div>

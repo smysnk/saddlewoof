@@ -1,0 +1,8 @@
+{
+  "realm": "saddlewoof",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCY0042IQUU5FA/bj2LvHb95V5lSc2SSz9GRWgMQFAmkmAEc4JWcols2FgwqUfce7jhkPEGfxZphWNTL7nBCPZaEkkPGSqR1uAKm80B8WkgCtzq0g9Dd/711ytxrcwmgE+GCYSKUv83bbBITzQYt65PJRLKYj+nuvwMcITpIyuPjwIDAQAB",
+  "auth-server-url": "https://auth.psidox.com/auth",
+  "ssl-required": "external",
+  "resource": "frontend",
+  "public-client": true
+}

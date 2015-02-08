@@ -1,0 +1,54 @@
+<!-- <div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+
+        <div class="logo">SaddleWoof</div>
+
+        <div class="navbar-header">                    
+            <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-collapse" style="padding: 20px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav navbar-right" ng-if="$state.includes('authenticated')">
+                <li><a ui-sref="authenticated.dashboard">DASHBOARD</a></li>
+                <li><a ui-sref="authenticated.switchboard">SWITCHBOARD</a></li>
+                <li><a ui-sref="authenticated.paperless">PAPERLESS</a></li>
+                <li><a href="" ng-click="$keycloak.logout()" ng-if="$keycloak.authenticated">LOGOUT</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div> -->
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="jumbotron">
+                
+                <div class="row">
+                    <div class="col-xs-7">
+
+                        <h1>SaddleWoof</h1>
+                        <p>Dog park, evolved.</p>
+                        <p>&nbsp;</p>
+                        <p>
+                            <a class="btn btn-primary btn-lg" href="#" ng-click="$keycloak.login()" role="button">Create Account / Exisiting User</a>
+                        </p>
+                    </div>
+                    <div class="col-xs-5">
+                        <img src="/image/saddledome.jpg" class="img-responsive thumbnail">
+                    </div>
+                </div>
+      
+            </div>
+
+        </div>
+    </div>
+</div>

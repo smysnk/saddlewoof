@@ -1,0 +1,8 @@
+
+org/postgresql
+org/postgis
+org/postgis/binary
+examples
+org/postgis/java2d
+org
+META-INF
