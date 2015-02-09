@@ -110,7 +110,7 @@ define([
                         })
                     .state('admin', {
                         url: '/admin',
-                        template: '<div ui-view></div>',
+                        templateUrl: 'view/admin.html',
                         controller: function ($scope, $rootScope, $state, $keycloak) {
                             if (!$keycloak.authenticated) 
                             return $state.go('home');

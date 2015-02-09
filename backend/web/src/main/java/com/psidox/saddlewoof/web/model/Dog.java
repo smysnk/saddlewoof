@@ -13,9 +13,9 @@ public class Dog {
     private Double temperature;
     private Double locationX;
     private Double locationY;
+    private String name;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     public Integer getId() {
         return this.id;
@@ -25,7 +25,7 @@ public class Dog {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     public Owner getOwner() {
         return owner;
@@ -69,6 +69,15 @@ public class Dog {
 
     public void setLocationY(Double locationY) {
         this.locationY = locationY;
+    }
+
+    @Column(name = "name")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

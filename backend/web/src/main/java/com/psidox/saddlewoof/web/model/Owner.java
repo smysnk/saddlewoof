@@ -1,6 +1,10 @@
 package com.psidox.saddlewoof.web.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,7 +13,7 @@ import java.util.List;
 public class Owner {
 
     private String uuid;
-    private String nameDog;
+    private String email;
     private String nameOwner;
     private List<Dog> dogs;
 
@@ -23,13 +27,13 @@ public class Owner {
         this.uuid = uuid;
     }
 
-    @Column(name = "name_dog")
-    public String getNameDog() {
-        return nameDog;
+    @Column
+    public String getEmail() {
+        return email;
     }
 
-    public void setNameDog(String nameDog) {
-        this.nameDog = nameDog;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Column(name = "name_owner")
@@ -41,6 +45,7 @@ public class Owner {
         this.nameOwner = nameOwner;
     }
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     public List<Dog> getDogs() {
         return dogs;

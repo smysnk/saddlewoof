@@ -183,17 +183,8 @@ gulp.task 'connect', ->
                     url = require("url")
                     proxy = require("proxy-middleware")
                     
-                    options = url.parse("http://localhost:8080/service/api")
+                    options = url.parse("http://localhost:8080/web/api")
                     options.route = "/api"
-
-                    proxy(options)
-                )(),
-                (->
-                    url = require("url")
-                    proxy = require("proxy-middleware")
-                    
-                    options = url.parse("http://localhost:8080/service/images")
-                    options.route = "/images"
 
                     proxy(options)
                 )(),

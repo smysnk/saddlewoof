@@ -18,9 +18,9 @@ public class ServiceOwner {
     @Inject private Logger log;
     @Inject private EntityManager em;
 
-    public List<Dog> listAll() {
+    public List<Owner> listAll() {
 
-       List<Dog> results = em.createQuery("select o from Owner o").getResultList();
+       List<Owner> results = em.createQuery("select o from Owner o").getResultList();
        return results;
 
     }
@@ -32,19 +32,33 @@ public class ServiceOwner {
 
     }
 
-    public Owner update(Owner ownerUpdated) {
+    public Owner patch(Owner ownerUpdated) {
 
         Query query = em.createQuery("SELECT o FROM Owner o WHERE uuid = :uuid");
         query.setParameter("uuid", ownerUpdated.getUuid());
 
-        Owner owner = (Owner)query.getSingleResult();
-        owner.setNameDog(ownerUpdated.getNameDog());
+        Owner owner;
+        try {
+            owner = (Owner) query.getSingleResult();
+        } catch (NoResultException e) {
+            this.em.persist(ownerUpdated);
+            return ownerUpdated;
+        }
+
+        owner.setEmail(ownerUpdated.getEmail());
         owner.setNameOwner(ownerUpdated.getNameOwner());
 
         return owner;
 
     }
 
+    public Owner get(String uuid) {
+
+        Query query = em.createQuery("SELECT o FROM Owner o WHERE uuid = :uuid");
+        query.setParameter("uuid", uuid);
+        return (Owner) query.getSingleResult();
+
+    }
 
     public Boolean delete(String uuid) {
 
@@ -59,6 +73,15 @@ public class ServiceOwner {
         }
 
         return true;
+
+    }
+
+    public List<Dog> dogListAll(String uuid) {
+
+        Query query = em.createQuery("select d from Owner o JOIN o.dogs d WHERE o.uuid = :uuid");
+        query.setParameter("uuid", uuid);
+
+        return (List<Dog>) query.getResultList();
 
     }
 }

@@ -7,33 +7,37 @@ define([
 
     return app.controller('Principle', [
         '$scope',
-        'Restangular',
         '$keycloak',
-        '$rootScope',
-        '$anchorScroll',
-        '$location',
-        '$timeout',
-        function Controller($scope, Restangular, $keycloak, $rootScope, $anchorScroll, $location, $timeout) {
+        '$owner',
+        function Controller($scope, $keycloak, $owner) {
 
-            $scope.head = {
-                'title': 'null'
-            };
+            // Set the owners to scope once its ready
+            $owner.then(function (owners) {
+                
+                if (!$keycloak.authenticated) return;
+
+                var owner;
+                try {
+                    owner = owners.getByUuid($keycloak.subject);
+                    owner.id = $keycloak.subject; // Required because id is not on put, for some reason if we don't
+                } catch (e) {
+                    owner = owners.one($keycloak.subject);
+                }
+                $scope.owner = owner;
+
+                // If anything has changed from auth server, update local copy from authenticated
+                if (owner.uuid == $keycloak.subject 
+                    && owner.email == $keycloak.idToken.email 
+                    && owner.nameOwner == $keycloak.idToken.name) return;
+
+                owner.uuid = $keycloak.subject;
+                owner.email = $keycloak.idToken.email;
+                owner.nameOwner = $keycloak.idToken.name;
+                owner.put();
+
+            });
 
             $scope.$keycloak = $keycloak;
-            // When user enters the website via url with a hash, this fix will bring the user to the appropriate section
-            // if ($location.hash()) {
-            //     $timeout(function() {
-            //         $scope.scrollTo($location.hash());
-            //     }, 500);                
-            // }
-
-            // $scope.scrollTo = function(id) {
-            //     var old = $location.hash();
-            //     $location.hash(id);
-            //     $anchorScroll();
-            //     //reset to old to keep any additional routing logic from kicking in
-            //     $location.hash(old);
-            // };
 
 
         }

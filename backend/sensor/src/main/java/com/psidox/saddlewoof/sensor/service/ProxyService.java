@@ -1,6 +1,5 @@
 package com.psidox.saddlewoof.sensor.service;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -51,14 +50,6 @@ public class ProxyService {
 
             HttpResponse httpResponse = httpclient.execute(proxy, putRequest);
             HttpEntity entity = httpResponse.getEntity();
-
-            System.out.println("----------------------------------------");
-            System.out.println(httpResponse.getStatusLine());
-            Header[] headers = httpResponse.getAllHeaders();
-            for (int i = 0; i < headers.length; i++) {
-                System.out.println(headers[i]);
-            }
-            System.out.println("----------------------------------------");
 
             if (entity != null) {
                 return EntityUtils.toString(entity);

@@ -2,96 +2,88 @@
     <div class="row">
         <div class="col-xs-12">
                 
-            <div class="row">
-                <div class="col-xs-6">
+            <div class="row header">
+                <div class="col-xs-12">
                     <h1>User Profile</h1>
                 </div>
             </div>
 
             <div class="page-header">
-                <h4>Owner</h4>
+                <h4><i class="fa fa-user-plus fa-fw"></i> Owner</h4>
             </div>
             
             <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>E-mail</strong></p>
+                <div class="col-xs-6 col-sm-2">
+                    <p><i class="fa fa-envelope-o fa-fw"></i> <strong>E-mail</strong></p>
                 </div>
-                <div class="col-xs-6">
-                    <p>josh@psidox.com</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>Name</strong></p>
-                </div>
-                <div class="col-xs-6">
-                    <p>Joshua Bellamy-Henn</p>
-                </div>
-            </div>
-
-            <div class="page-header">
-                <h4>Charlie</h4>
-            </div>            
-
-            <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>Temperature</strong></p>
-                </div>
-                <div class="col-xs-6">
-                    <p>20 &deg;C</p>
+                <div class="col-xs-6 col-sm-6">
+                    <p>{{owner.email}}</p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>Heart Rate</strong></p>
+                <div class="col-xs-6 col-sm-2">
+                    <p><i class="fa fa-user fa-fw"></i> <strong>Name</strong></p>
                 </div>
-                <div class="col-xs-6">
-                    <p>43 bpm</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>Location</strong></p>
-                </div>
-                <div class="col-xs-6">
-                    <p>32.2, 32.2</p>
-                </div>
-            </div>
-
-
-            <div class="page-header">
-                <h4>Amanda</h4>
-            </div>            
-
-            <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>Temperature</strong></p>
-                </div>
-                <div class="col-xs-6">
-                    <p>20 &deg;C</p>
+                <div class="col-xs-6 col-sm-6">
+                    <p>{{owner.nameOwner}}</p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>Heart Rate</strong></p>
-                </div>
-                <div class="col-xs-6">
-                    <p>43 bpm</p>
+                <div class="col-xs-12">
+                    <div class="page-header">
+                        <h4><i class="fa fa-paw"></i> Dogs</h4>
+                    </div>            
                 </div>
             </div>
 
+
             <div class="row">
-                <div class="col-xs-3">
-                    <p><strong>Location</strong></p>
-                </div>
-                <div class="col-xs-6">
-                    <p>32.2, 32.2</p>
-                </div>
-            </div>            
+
+                <div class="col-xs-12 col-md-4" ng-repeat="dog in dogs">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="btn btn-primary btn-lg pull-right" href="#" ng-click="$keycloak.login()" role="button">View on Map</a>
+                            <h4><i class="fa fa-paw fa-fw"></i> {{dog.name}}</h4>
+                        </div>            
+
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <p><i class="fa fa-tachometer fa-fw"></i> <strong>Temperature</strong></p>
+                                </div>
+                                <div class="col-xs-5">
+                                    <p>{{dog.temperature}} &deg;C</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <p><i class="fa fa-heartbeat fa-fw"></i> <strong>Heart Rate</strong></p>
+                                </div>
+                                <div class="col-xs-5">
+                                    <p>{{dog.heartRate}} bpm</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <p><i class="fa fa-crosshairs fa-fw"></i> <strong>Location</strong></p>
+                                </div>
+                                <div class="col-xs-5">
+                                    <p>{{dog.locationX}}, {{dog.locationY}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>                
+
+            </div>
+
+                      
 
   
         </div>

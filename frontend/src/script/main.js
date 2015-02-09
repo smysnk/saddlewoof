@@ -52,6 +52,10 @@ require([
     'controller/principle',
     'controller/front_page',
     'service/service',
+    'service/dog',
+    'service/owner',
+    'directive/owner_select',
+    'directive/panel_dog',
     'filter/unsafe',
 ], function (Keycloak, angular, app) {
 

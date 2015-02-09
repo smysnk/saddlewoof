@@ -6,6 +6,7 @@ import com.psidox.saddlewoof.web.service.ServiceDog;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Path("/dog")
@@ -17,11 +18,12 @@ public class ResourceDog {
     @Inject Logger logger;
 
 
-    @POST
-    public Dog dogCreate(Dog dog)  {
 
-        serviceDog.create(dog);
-        return dog;
+    @GET
+    public List<Dog> dogList() {
+
+        List<Dog> dogs = serviceDog.listAll();
+        return dogs;
 
     }
 
@@ -29,8 +31,24 @@ public class ResourceDog {
     @Path("/{id:[0-9]*}")
     public Dog dogUpdate(Dog dog)  {
 
-        dog = serviceDog.update(dog);
+        dog = serviceDog.patch(dog);
         return dog;
+
+    }
+
+    @DELETE
+    @Path("/{idDog:[0-9]*}/owner")
+    public void dogOwnerClear(@PathParam("idDog") Integer idDog)  {
+
+        serviceDog.setOwner(idDog, null);
+
+    }
+
+    @PUT
+    @Path("/{idDog:[0-9]*}/owner/{idOwner:[a-z0-9--]*}")
+    public void dogOwnerSet(@PathParam("idDog") Integer idDog, @PathParam("idOwner") String idOwner)  {
+
+        serviceDog.setOwner(idDog, idOwner);
 
     }
 

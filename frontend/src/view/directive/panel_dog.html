@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                    <input type="text" class="form-control" placeholder="Dog Name" value="{{dog.id}}" disabled="true" aria-describedby="sizing-addon2">
+                </div>
+            </div>
+            <div class="col-xs-3">&nbsp;</div>
+            <div class="col-xs-1"><i class="fa fa-arrows-h fa-fw"></i></div>
+            <div class="col-xs-5">
+                <owner-select owners="owners" dog="dog" />
+            </div>
+        </div>
+
+        <div class="row" ng-show="dog.owner" style="margin-top: 20px;">
+            <div class="col-xs-6" style="position: relative;">                                    
+                <div class="fa fa-spinner" style="position:absolute; right: 25px; top: 10px; z-index: 99 color: grey;" ng-if="nameDogDirty"></div>
+                <div class="fa fa-check" style="position:absolute; right: 25px; top: 10px; z-index: 99; color: green;" ng-if="nameDogCommitted"></div>
+                <div class="input-group">                
+                    <span class="input-group-addon"><i class="fa fa-paw fa-fw"></i></span>
+                    <input type="text" class="form-control" placeholder="Dog Name" ng-model="dog.name" aria-describedby="sizing-addon2">
+                </div>
+
+            </div>
+            <div class="col-xs-1">
+
+            </div>
+        </div>
+
+    </div>
+</div>

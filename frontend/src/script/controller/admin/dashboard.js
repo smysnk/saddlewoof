@@ -10,11 +10,20 @@ define([
         '$scope',
         '$keycloak',
         '$state',
-        function Controller($scope, $keycloak, $state) {
+        '$dog',
+        '$owner',
+        function Controller($scope, $keycloak, $state, $dog, $owner) {
+        
+            // Set the dogs to scope once its ready
+            $dog.then(function (dogs) {
+                $scope.dogs = dogs;
+            });
 
-            if (!$keycloak.authenticated) 
-                return $state.go('home');
-            
+            // Set the owners to scope once its ready
+            $owner.then(function (owners) {
+                $scope.owners = owners;
+            });
+
         }
     ]);
 });
