@@ -28,8 +28,12 @@ define([
             });
 
             // Refresh dogs every 3 seconds
-            $interval(dogsRefresh, 3000);
-            
+            var interval = $interval(dogsRefresh, 3000);
+
+            // Cleanup
+            $scope.$on("$destroy", function() {
+                $interval.cancel(interval);
+            });        
 
         }
     ]);

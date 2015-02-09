@@ -11,7 +11,25 @@ define([
         '$scope',
         '$keycloak',
         '$state',
-        function Controller($scope, $keycloak, $state) {
+        '$interval',
+        '$dog',
+        function Controller($scope, $keycloak, $state, $interval, $dog) {
+
+            var dogsRefresh = function () { 
+	            
+	            if (!$scope.dogs) {	            	
+		            // Set the dogs to scope once its ready
+		            $dog.then(function (dogs) {
+		                $scope.dogs = dogs;
+		            });
+	            } else {
+	            	$scope.dogs.getList();
+	            }
+
+            };
+
+            // Refresh dogs every 3 seconds
+            $interval(dogsRefresh, 3000);        	
 
             $scope.map = {
                 control: {},
