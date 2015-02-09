@@ -32,5 +32,6 @@ cp -R --remove-destination /fs/.* /
 chown -R $WILDFLY_USER:$WILDFLY_USER $WILDFLY_DIR
 chown -R wildfly:wildfly /var/www/beta/image/asset
 
-
+# Setup requried python libraries
+easy_install requests
 

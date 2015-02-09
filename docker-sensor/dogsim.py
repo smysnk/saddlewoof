@@ -1,8 +1,18 @@
+import urllib2
+import socket
 import time
 import requests
 import random
+import sys
+import decimal
 
 s = requests.Session()
+# headers = {
+#     'Pragma':'no-cache',
+#     'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36',
+#     'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#     'Accept-Language':'en-US,en;q=0.8'
+#     }
 
 xMin = 0
 xMax = 0.4
@@ -16,6 +26,8 @@ heartRateMin = 60
 heartRateMax = 140
 
 url = 'http://localhost:8080/sensor/api/dog'
+#url = 'http://sensor.saddlewoof.psidox.com/api/dog'
+#url = 'http://saddlewoof.psidox.com/api/dog'
 
 def entropy(value, min, max, step):
 
@@ -43,8 +55,8 @@ while True:
         if not dog:
             dogs[i] = dog = {'x': None, 'y': None, 'temperature': None, 'heartRate': None}
 
-        dog['x'] = entropy(dog['x'], xMin, xMax, 0.005)
-        dog['y'] = entropy(dog['y'], yMin, yMax, 0.005)
+        dog['x'] = entropy(dog['x'], xMin, xMax, 0.001)
+        dog['y'] = entropy(dog['y'], yMin, yMax, 0.001)
         dog['temperature'] = entropy(dog['temperature'], temperatureMin, temperatureMax, 0.1)
         dog['heartRate'] = entropy(dog['heartRate'], heartRateMin, heartRateMax, 1)
 
@@ -56,5 +68,5 @@ while True:
         except:
             pass # Server might not be up
 
-    time.sleep(3)
+    time.sleep(1)
 
