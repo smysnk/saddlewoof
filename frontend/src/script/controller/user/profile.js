@@ -11,17 +11,25 @@ define([
         '$keycloak',
         '$state',
         '$owner',
-        function Controller($scope, $keycloak, $state, $owner) {
+        '$interval',
+        function Controller($scope, $keycloak, $state, $owner, $interval) {
 
-            // Get a list of dogs for this owner
-            $scope.$watch('owner', function(owner) {
-
-                if (!owner) return;
-                owner.one('dog').getList().then(function(dogs) {
+            var dogsRefresh = function () { 
+                if (!$scope.owner) return;
+                $scope.owner.one('dog').getList().then(function(dogs) {
                     $scope.dogs = dogs;
                 });
+            };
 
+
+            // Refresh dogs once we have an owner
+            $scope.$watch('owner', function(owner) {
+                dogsRefresh();
             });
+
+            // Refresh dogs every 3 seconds
+            $interval(dogsRefresh, 3000);
+            
 
         }
     ]);

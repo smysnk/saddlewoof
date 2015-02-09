@@ -3,8 +3,9 @@
 
 define([
     'app',
-    'lodash'
-], function (app, _) {
+    'lodash',
+    'util/usgs_overlay'
+], function (app, _, USGSOverlay) {
 
     return app.controller('UserMap', [
         '$scope',
@@ -12,83 +13,6 @@ define([
         '$state',
         function Controller($scope, $keycloak, $state) {
 
-var overlay;
-USGSOverlay.prototype = new google.maps.OverlayView();                
-
-/** @constructor */
-function USGSOverlay(bounds, image, map) {
-
-  // Initialize all properties.
-  this.bounds_ = bounds;
-  this.image_ = image;
-  this.map_ = map;
-
-  // Define a property to hold the image's div. We'll
-  // actually create this div upon receipt of the onAdd()
-  // method so we'll leave it null for now.
-  this.div_ = null;
-
-  // Explicitly call setMap on this overlay.
-  this.setMap(map);
-}
-
-/**
- * onAdd is called when the map's panes are ready and the overlay has been
- * added to the map.
- */
-USGSOverlay.prototype.onAdd = function() {
-
-  var div = document.createElement('div');
-  div.style.borderStyle = 'none';
-  div.style.borderWidth = '0px';
-  div.style.position = 'absolute';
-
-  // Create the img element and attach it to the div.
-  var img = document.createElement('img');
-  img.src = this.image_;
-  img.style.width = '100%';
-  img.style.height = '100%';
-  img.style.position = 'absolute';
-  div.appendChild(img);
-
-  this.div_ = div;
-
-  // Add the element to the "overlayLayer" pane.
-  var panes = this.getPanes();
-  panes.overlayLayer.appendChild(div);
-};
-                
-USGSOverlay.prototype.draw = function() {
-
-  // We use the south-west and north-east
-  // coordinates of the overlay to peg it to the correct position and size.
-  // To do this, we need to retrieve the projection from the overlay.
-  var overlayProjection = this.getProjection();
-
-  // Retrieve the south-west and north-east coordinates of this overlay
-  // in LatLngs and convert them to pixel coordinates.
-  // We'll use these coordinates to resize the div.
-  var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
-  var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
-
-  // Resize the image's div to fit the indicated dimensions.
-  var div = this.div_;
-  div.style.left = sw.x + 'px';
-  div.style.top = ne.y + 'px';
-  div.style.width = (ne.x - sw.x) + 'px';
-  div.style.height = (sw.y - ne.y) + 'px';
-};
-
-// The onRemove() method will be called automatically from the API if
-// we ever set the overlay's map property to 'null'.
-USGSOverlay.prototype.onRemove = function() {
-  this.div_.parentNode.removeChild(this.div_);
-  this.div_ = null;
-};                
-
-
-
-            
             $scope.map = {
                 control: {},
                 options: {
@@ -99,27 +23,29 @@ USGSOverlay.prototype.onRemove = function() {
                     streetViewControl: false                    
                 },
                 center: {
-                    latitude: 0.1,
-                    longitude: 0.2 // -114.0713192
+                    latitude: 51.0375, // 51.0372687,-114.0519849
+                    longitude: -114.0520 // -114.0713192
                 },
-                zoom: 12
+                zoom: 20
             };
 
             $scope.$watch('map.control', function (control) {
                 
                 var map = control.getGMap();
 
+                // var swBound = new google.maps.LatLng(0, 0);
+                // var neBound = new google.maps.LatLng(0.2, 0.4);
+                  
+				var swBound = new google.maps.LatLng(51.0372, -114.0527);
+				var neBound = new google.maps.LatLng(51.0377, -114.0512);
+				var bounds = new google.maps.LatLngBounds(swBound, neBound);
 
-                  var swBound = new google.maps.LatLng(0, 0);
-                  var neBound = new google.maps.LatLng(0.2, 0.4);
-                  var bounds = new google.maps.LatLngBounds(swBound, neBound);
+				// The photograph is courtesy of the U.S. Geological Survey.
+				var srcImage = '/image/hockey_rink.png';
 
-                  // The photograph is courtesy of the U.S. Geological Survey.
-                  var srcImage = '/image/hockey_rink.png';
-
-                  // The custom USGSOverlay object contains the USGS image,
-                  // the bounds of the image, and a reference to the map.
-                  var overlay = new USGSOverlay(bounds, srcImage, map);
+				// The custom USGSOverlay object contains the USGS image,
+				// the bounds of the image, and a reference to the map.
+				var overlay = new USGSOverlay(bounds, srcImage, map);
 
                 //console.log(map);
 
