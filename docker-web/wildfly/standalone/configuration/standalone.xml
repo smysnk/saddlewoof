@@ -147,8 +147,8 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <datasource jndi-name="java:jboss/datasources/dcmi" pool-name="dcmiDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://localhost:3306/dcmi</connection-url>
+                <datasource jndi-name="java:jboss/datasources/saddlewoof" pool-name="saddlewoofDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:mysql://localhost:3306/saddlewoof</connection-url>
                     <driver>mysql</driver>
                     <security>
                         <user-name>root</user-name>
@@ -398,13 +398,5 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
-
-
-    <deployment-overlays>
-        <deployment-overlay name="myOverlay">
-            <content path="/WEB-INF/web.xml" content="04df88069afca9ba141fe0132c1a3a5bf71e8b78"/>
-            <deployment name="service.war"/>
-        </deployment-overlay>
-    </deployment-overlays>
 
 </server>

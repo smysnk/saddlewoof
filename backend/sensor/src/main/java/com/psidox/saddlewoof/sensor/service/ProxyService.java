@@ -10,6 +10,7 @@ import org.apache.http.util.EntityUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.ejb.Startup;
 import javax.inject.Singleton;
 
@@ -18,6 +19,16 @@ import javax.inject.Singleton;
 public class ProxyService {
 
     private DefaultHttpClient httpclient;
+
+    @Resource(name = "server_web_host")
+    private String serverWebHost;
+
+    @Resource(name = "server_web_port")
+    private Integer serverWebPort;
+
+    @Resource(name = "server_web_path")
+    private String serverWebPath;
+
 
     @PostConstruct
     private void init() {
@@ -37,10 +48,10 @@ public class ProxyService {
 
         try {
             // specify the host, protocol, and port
-            HttpHost proxy = new HttpHost("localhost", 8080, "http");
+            HttpHost proxy = new HttpHost(serverWebHost, serverWebPort, "http");
 
             // specify the get request
-            HttpPut putRequest = new HttpPut("/web/api/dog/" + dogId);
+            HttpPut putRequest = new HttpPut(serverWebPath + "/api/dog/" + dogId);
 
             StringEntity stringEntity = new StringEntity(requestBody);
             stringEntity.setContentType("application/json");
