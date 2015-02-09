@@ -2,7 +2,9 @@ import urllib2
 import socket
 import time
 import requests
-
+import random
+import sys
+import decimal
 
 s = requests.Session()
 # headers = {
@@ -12,23 +14,55 @@ s = requests.Session()
 #     'Accept-Language':'en-US,en;q=0.8'
 #     }
 
-# minX = 0
-# maxX = 0.4
-# minY = 0
-# maxY = 0.2
-#url = 'http://localhost:8080/sensor/api/dog'
+xMin = 0
+xMax = 0.4
+yMin = 0
+yMax = 0.2
+
+temperatureMin = 38.3
+temperatureMax = 39.2
+
+heartRateMin = 60
+heartRateMax = 140
+
+url = 'http://localhost:8080/sensor/api/dog'
 #url = 'http://sensor.saddlewoof.psidox.com/api/dog'
-url = 'http://saddlewoof.psidox.com/api/dog'
+#url = 'http://saddlewoof.psidox.com/api/dog'
 
+def entropy(value, min, max, step):
+
+    resolution = 1 / step
+
+    if value == None:
+        value = random.randrange(min * resolution, max * resolution, step * resolution) / resolution
+    else:
+        value += (step * random.choice([-1,1]))
+
+    if (value < min):
+        value = min + step
+
+    if (value > max):
+        value = max - step
+
+    return value
+
+dogs = {}
 while True:
-
-
-
-
     for i in range(1,101):
-        data = '{"heartRate":"50","temperature":"30","locationX":"1.2","locationY":"4.2","id":"%d"}' % i
+
+        dog = dogs.get(i)
+
+        if not dog:
+            dogs[i] = dog = {'x': None, 'y': None, 'temperature': None, 'heartRate': None}
+
+        dog['x'] = entropy(dog['x'], xMin, xMax, 0.001)
+        dog['y'] = entropy(dog['y'], yMin, yMax, 0.001)
+        dog['temperature'] = entropy(dog['temperature'], temperatureMin, temperatureMax, 0.1)
+        dog['heartRate'] = entropy(dog['heartRate'], heartRateMin, heartRateMax, 1)
+
+        data = '{"heartRate":"%d","temperature":"%d","locationX":"%f","locationY":"%f","id":"%d"}' % (dog['heartRate'], dog['temperature'], dog['x'], dog['y'], i)
         r = s.put("%s/%d" % (url, i), data=data)
-        print r.text
+        print r.text, data
 
     time.sleep(1)
 
