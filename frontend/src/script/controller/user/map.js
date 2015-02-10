@@ -77,9 +77,7 @@ define([
 				                    icon: icon
 				                });
 
-				                if (isOwner) {
-                                    infoWindows[dog.id] = attachMarker(markers[dog.id]);				                	
-				                }
+                                infoWindows[dog.id] = attachMarker(markers[dog.id]);				                	
                                 mc.addMarker(markers[dog.id]);
 
 				            } else {
