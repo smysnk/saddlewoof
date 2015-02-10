@@ -113,7 +113,7 @@ define([
                         templateUrl: 'view/admin.html',
                         controller: function ($scope, $rootScope, $state, $keycloak) {
                             if (!$keycloak.authenticated) 
-                            return $state.go('home');
+                                return $state.go('home');
                         }                        
                     })                        
                         .state('admin.dashboard', {

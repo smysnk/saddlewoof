@@ -25,9 +25,26 @@ define([
 		        origin: new google.maps.Point(0, 0)
 		    };
 
+            function attachMarker(marker) {
+                
+                var infoWindow = new google.maps.InfoWindow({ 
+                    content: "test",
+                    size: new google.maps.Size(50,50)
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infoWindow.open(map, marker);
+                });
+
+                return infoWindow;
+            }
+
         	var dogs;
         	var map;
         	var markers = [];
+            var infoWindows = [];
+            var mc;
+
             var dogsRefresh = function () { 
 	            
 	            if (!dogs) {	            	
@@ -51,30 +68,46 @@ define([
 		                	}
 
 		                	if (!markers[dog.id]) {
-				                markers[dog.id] = new google.maps.Marker({
+				                
+                                markers[dog.id] = new google.maps.Marker({
 				                    position: new google.maps.LatLng(dog.latitude, dog.longitude),
-				                    map: map,
+				                    //map: map,
 				                    draggable: false,
 				                    title: "" + dog.id,
 				                    icon: icon
 				                });
 
 				                if (isOwner) {
-				                	var infowindow = new google.maps.InfoWindow({
-										content: "hi"
-									});
-				                	google.maps.event.addListener(markers[dog.id], 'click', function() {
-										infowindow.open(map, markers[dog.id]);
-									});
+                                    infoWindows[dog.id] = attachMarker(markers[dog.id]);				                	
 				                }
+                                mc.addMarker(markers[dog.id]);
+
 				            } else {
 				            	markers[dog.id].setPosition(new google.maps.LatLng(dog.latitude, dog.longitude));
+
+                                if (isOwner) {
+                                    var html = '<div style="min-width: 200px;">' +
+                                               '        <div class="row">' +   
+                                               '            <div class="col-xs-7"><strong><i class="fa fa-paw fa-fw"></i> Name</strong></div>' +
+                                               '            <div class="col-xs-5">' + dog.name + '</div>' +
+                                               '        </div>' +
+                                               '        <div class="row">' +   
+                                               '            <div class="col-xs-7"><strong><i class="fa fa-heartbeat fa-fw"></i> Heart Rate</strong></div>' +
+                                               '            <div class="col-xs-5">' + dog.heartRate + ' bpm</div>' +
+                                               '        </div>' +
+                                               '        <div class="row">' +   
+                                               '            <div class="col-xs-7"><strong><i class="fa fa-tachometer fa-fw"></i> Temperature</strong></div>' +
+                                               '            <div class="col-xs-5">' + dog.temperature + '&deg;C</div>' +
+                                               '        </div>' +
+                                               '</div>';
+                                    infoWindows[dog.id].setContent(html);
+                                }                                
 				            }			                			               
 			            }
-
-            
 	            	});
 	            }
+
+                mc.repaint();
 
             };
 
@@ -102,6 +135,10 @@ define([
             $scope.$watch('map.control', function (control) {
                 
                 map = control.getGMap();
+
+                // Initialize marker cluster
+                var mcOptions = {gridSize: 30, maxZoom: 25};
+                mc = new MarkerClusterer(map, markers, mcOptions);
 
                 // var swBound = new google.maps.LatLng(0, 0);
                 // var neBound = new google.maps.LatLng(0.2, 0.4);

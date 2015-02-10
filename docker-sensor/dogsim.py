@@ -55,7 +55,7 @@ while True:
 
         try:
             r = s.put("%s/%d" % (url, i), data=data)
-            print r.text
+            # print r.text
         except:
             pass # Server might not be up
 

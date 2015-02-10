@@ -17,10 +17,11 @@ define([
         '$state',
         function Controller($scope, $rootScope, $location, $anchorScroll, Restangular, $timeout, $keycloak, $state) {
 
-            if ($keycloak.hasRealmRole('admin'))
+            if ($keycloak.hasRealmRole('admin')) {
                 return $state.go('admin.dashboard');
-            else if ($keycloak.hasRealmRole('user'))
+            } else if ($keycloak.hasRealmRole('user')) {
                 return $state.go('user.profile');
+            }
             
             $scope.createAccountUrl = $keycloak.createLoginUrl().replace("/login", "/registrations");
             

@@ -57,7 +57,7 @@ public class ProxyService {
             stringEntity.setContentType("application/json");
             putRequest.setEntity(stringEntity);
 
-            System.out.println("executing request to " + proxy);
+            // System.out.println("executing request to " + proxy);
 
             HttpResponse httpResponse = httpclient.execute(proxy, putRequest);
             HttpEntity entity = httpResponse.getEntity();

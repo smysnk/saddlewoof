@@ -23,7 +23,7 @@ public class Interceptor implements ContainerRequestFilter {
     	}
 		//request += String.format("body: %s\n", IOUtils.toString(reqContext.getEntityStream()));
 
-    	System.out.println(request);
+    	//System.out.println(request);
     	
     }
 }
