@@ -214,6 +214,7 @@ gulp.task 'release-copy', ->
         gulp.src("#{source.baseDir}/*.ico").pipe(gulp.dest(alpha.baseDir))
         gulp.src("#{source.baseDir}/*.html").pipe(gulp.dest(alpha.baseDir))
         gulp.src("#{source.baseDir}/*.json").pipe(gulp.dest(alpha.baseDir))
+        gulp.src("#{source.baseDir}/markercluster.js").pipe(gulp.dest(alpha.baseDir))
         gulp.src("#{source.imageDir}/**/*.*").pipe(gulp.dest(alpha.imageDir))
         gulp.src("#{source.fontDir}/**").pipe(gulp.dest(alpha.fontDir))
         gulp.src("#{source.baseDir}/view/**/*.html").pipe(gulp.dest("#{alpha.baseDir}/view"))
