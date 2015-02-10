@@ -81,25 +81,24 @@ define([
                                 mc.addMarker(markers[dog.id]);
 
 				            } else {
-				            	markers[dog.id].setPosition(new google.maps.LatLng(dog.latitude, dog.longitude));
 
-                                if (isOwner) {
-                                    var html = '<div style="min-width: 200px;">' +
-                                               '        <div class="row">' +   
-                                               '            <div class="col-xs-7"><strong><i class="fa fa-paw fa-fw"></i> Name</strong></div>' +
-                                               '            <div class="col-xs-5">' + dog.name + '</div>' +
-                                               '        </div>' +
-                                               '        <div class="row">' +   
-                                               '            <div class="col-xs-7"><strong><i class="fa fa-heartbeat fa-fw"></i> Heart Rate</strong></div>' +
-                                               '            <div class="col-xs-5">' + dog.heartRate + ' bpm</div>' +
-                                               '        </div>' +
-                                               '        <div class="row">' +   
-                                               '            <div class="col-xs-7"><strong><i class="fa fa-tachometer fa-fw"></i> Temperature</strong></div>' +
-                                               '            <div class="col-xs-5">' + dog.temperature + '&deg;C</div>' +
-                                               '        </div>' +
-                                               '</div>';
-                                    infoWindows[dog.id].setContent(html);
-                                }                                
+				            	markers[dog.id].setPosition(new google.maps.LatLng(dog.latitude, dog.longitude));
+                                var html = '<div style="min-width: 200px;">' +
+                                           '        <div class="row">' +   
+                                           '            <div class="col-xs-7"><strong><i class="fa fa-paw fa-fw"></i> Name</strong></div>' +
+                                           '            <div class="col-xs-5">' + dog.name + '</div>' +
+                                           '        </div>' +
+                                           '        <div class="row">' +   
+                                           '            <div class="col-xs-7"><strong><i class="fa fa-heartbeat fa-fw"></i> Heart Rate</strong></div>' +
+                                           '            <div class="col-xs-5">' + dog.heartRate + ' bpm</div>' +
+                                           '        </div>' +
+                                           '        <div class="row">' +   
+                                           '            <div class="col-xs-7"><strong><i class="fa fa-tachometer fa-fw"></i> Temperature</strong></div>' +
+                                           '            <div class="col-xs-5">' + dog.temperature + '&deg;C</div>' +
+                                           '        </div>' +
+                                           '</div>';
+                                infoWindows[dog.id].setContent(html);
+                            
 				            }			                			               
 			            }
 	            	});
@@ -121,7 +120,7 @@ define([
                     disableDefaultUI: false,
                     scrollwheel: true,
                     draggable: true,
-                    streetViewControl: false                    
+                    streetViewControl: false
                 },
                 center: {
                     latitude: 51.0375, // 51.0372687,-114.0519849
@@ -135,7 +134,7 @@ define([
                 map = control.getGMap();
 
                 // Initialize marker cluster
-                var mcOptions = {gridSize: 30, maxZoom: 25};
+                var mcOptions = {gridSize: 50, maxZoom: 25};
                 mc = new MarkerClusterer(map, markers, mcOptions);
 
                 // var swBound = new google.maps.LatLng(0, 0);
@@ -151,8 +150,6 @@ define([
 				// The custom USGSOverlay object contains the USGS image,
 				// the bounds of the image, and a reference to the map.
 				var overlay = new USGSOverlay(bounds, srcImage, map);
-
-                //console.log(map);
 
             });
 
