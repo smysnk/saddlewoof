@@ -394,7 +394,7 @@
     <deployment-overlays>
         <deployment-overlay name="myOverlay">
             <content path="/WEB-INF/web.xml" content="04df88069afca9ba141fe0132c1a3a5bf71e8b78"/>
-            <deployment name="service.war"/>
+            <deployment name="sensor.war"/>
         </deployment-overlay>
     </deployment-overlays>
 

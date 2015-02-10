@@ -1,6 +1,7 @@
 import time
 import requests
 import random
+import sys
 
 s = requests.Session()
 
@@ -17,6 +18,7 @@ heartRateMax = 140
 
 url = 'http://localhost:8080/sensor/api/dog'
 #url = 'http://sensor.saddlewoof.psidox.com/api/dog'
+#url = 'http://saddlewoof.psidox.com/api/dog'
 
 def entropy(value, min, max, step):
 
@@ -58,4 +60,5 @@ while True:
             pass # Server might not be up
 
     time.sleep(1)
+    
 
