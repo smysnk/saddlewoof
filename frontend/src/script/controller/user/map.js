@@ -41,10 +41,11 @@ define([
 
 		                for (var length = dogs.length, i=0; i < length; i++) {
 		                	var dog = dogs[i];
-
+		                	var isOwner = false;
 		                	var icon;
 		                	if (dog.owner && dog.owner.uuid == $scope.owner.uuid) {
 		                		icon = iconRed;
+		                		isOwner = true;
 		                	} else {
 		                		icon = iconBlack;
 		                	}
@@ -57,6 +58,15 @@ define([
 				                    title: "" + dog.id,
 				                    icon: icon
 				                });
+
+				                if (isOwner) {
+				                	var infowindow = new google.maps.InfoWindow({
+										content: "hi"
+									});
+				                	google.maps.event.addListener(markers[dog.id], 'click', function() {
+										infowindow.open(map, markers[dog.id]);
+									});
+				                }
 				            } else {
 				            	markers[dog.id].setPosition(new google.maps.LatLng(dog.latitude, dog.longitude));
 				            }			                			               

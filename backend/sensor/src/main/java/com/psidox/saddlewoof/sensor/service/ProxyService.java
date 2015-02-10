@@ -51,7 +51,7 @@ public class ProxyService {
             HttpHost proxy = new HttpHost(serverWebHost, serverWebPort, "http");
 
             // specify the get request
-            HttpPut putRequest = new HttpPut(serverWebPath + "/api/dog/" + dogId);
+            HttpPut putRequest = new HttpPut(serverWebPath + "api/dog/" + dogId);
 
             StringEntity stringEntity = new StringEntity(requestBody);
             stringEntity.setContentType("application/json");
