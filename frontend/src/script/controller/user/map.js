@@ -15,21 +15,63 @@ define([
         '$dog',
         function Controller($scope, $keycloak, $state, $interval, $dog) {
 
+		    var iconBlack = {
+		        url: '/image/map-marker_dog-black.svg',
+		        origin: new google.maps.Point(0, 0)
+		    };
+
+		    var iconRed = {
+		        url: '/image/map-marker_dog-red.svg',
+		        origin: new google.maps.Point(0, 0)
+		    };
+
+        	var dogs;
+        	var map;
+        	var markers = [];
             var dogsRefresh = function () { 
 	            
-	            if (!$scope.dogs) {	            	
+	            if (!dogs) {	            	
 		            // Set the dogs to scope once its ready
-		            $dog.then(function (dogs) {
-		                $scope.dogs = dogs;
+		            $dog.then(function (dogsNew) {
+		                dogs = dogsNew;
 		            });
 	            } else {
-	            	$scope.dogs.getList();
+	            	dogs.getList().then(function (dogsNew) {
+	            		dogs = dogsNew;
+
+		                for (var length = dogs.length, i=0; i < length; i++) {
+		                	var dog = dogs[i];
+
+		                	var icon;
+		                	if (dog.owner && dog.owner.uuid == $scope.owner.uuid) {
+		                		icon = iconRed;
+		                	} else {
+		                		icon = iconBlack;
+		                	}
+
+		                	if (!markers[dog.id]) {
+				                markers[dog.id] = new google.maps.Marker({
+				                    position: new google.maps.LatLng(dog.latitude, dog.longitude),
+				                    map: map,
+				                    draggable: false,
+				                    title: "" + dog.id,
+				                    icon: icon
+				                });
+				            } else {
+				            	markers[dog.id].setPosition(new google.maps.LatLng(dog.latitude, dog.longitude));
+				            }			                			               
+			            }
+
+            
+	            	});
 	            }
 
             };
 
-            // Refresh dogs every 3 seconds
-            $interval(dogsRefresh, 3000);        	
+
+
+            // Refresh dogs every 1 seconds
+            var interval = $interval(dogsRefresh, 1000);        	
 
             $scope.map = {
                 control: {},
@@ -49,7 +91,7 @@ define([
 
             $scope.$watch('map.control', function (control) {
                 
-                var map = control.getGMap();
+                map = control.getGMap();
 
                 // var swBound = new google.maps.LatLng(0, 0);
                 // var neBound = new google.maps.LatLng(0.2, 0.4);
@@ -68,6 +110,13 @@ define([
                 //console.log(map);
 
             });
+
+
+            // Cleanup
+            $scope.$on("$destroy", function() {
+                $interval.cancel(interval);
+            });        
+
 
 
         }

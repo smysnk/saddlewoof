@@ -11,8 +11,8 @@ public class Dog {
     private Owner owner;
     private Integer heartRate;
     private Double temperature;
-    private Double locationX;
-    private Double locationY;
+    private Double longitude;
+    private Double latitude;
     private String name;
 
     @Id
@@ -53,22 +53,22 @@ public class Dog {
         this.temperature = temperature;
     }
 
-    @Column(name = "location_x")
-    public Double getLocationX() {
-        return locationX;
+    @Column
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setLocationX(Double locationX) {
-        this.locationX = locationX;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
-    @Column(name = "location_y")
-    public Double getLocationY() {
-        return locationY;
+    @Column
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setLocationY(Double locationY) {
-        this.locationY = locationY;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     @Column(name = "name")

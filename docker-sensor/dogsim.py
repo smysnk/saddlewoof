@@ -4,10 +4,10 @@ import random
 
 s = requests.Session()
 
-xMin = -114.052700
-xMax = -114.051200
-yMin   = 51.037200
-yMax   = 51.037700
+longitudeMin = -114.052700
+longitudeMax = -114.051200
+latitudeMin   = 51.037200
+latitudeMax   = 51.037700
 
 temperatureMin = 38.3
 temperatureMax = 39.2
@@ -23,7 +23,7 @@ def entropy(value, min, max, step):
     resolution = 1 / step
 
     if value == None:
-        value = random.randrange(min * resolution, max * resolution, step * resolution) / resolution
+        value = random.uniform(min, max)
     else:
         value += (step * random.choice([-1,1]))
 
@@ -42,14 +42,14 @@ while True:
         dog = dogs.get(i)
 
         if not dog:
-            dogs[i] = dog = {'x': None, 'y': None, 'temperature': None, 'heartRate': None}
+            dogs[i] = dog = {'longitude': None, 'latitude': None, 'temperature': None, 'heartRate': None}
 
-        dog['x'] = entropy(dog['x'], xMin, xMax, 0.000001)
-        dog['y'] = entropy(dog['y'], yMin, yMax, 0.000001)
+        dog['longitude'] = entropy(dog['longitude'], longitudeMin, longitudeMax, 0.00001)
+        dog['latitude'] = entropy(dog['latitude'], latitudeMin, latitudeMax, 0.00001)
         dog['temperature'] = entropy(dog['temperature'], temperatureMin, temperatureMax, 0.1)
         dog['heartRate'] = entropy(dog['heartRate'], heartRateMin, heartRateMax, 1)
 
-        data = '{"heartRate":"%d","temperature":"%f","locationX":"%f","locationY":"%f","id":"%d"}' % (dog['heartRate'], dog['temperature'], dog['x'], dog['y'], i)
+        data = '{"heartRate":"%d","temperature":"%f","longitude":"%f","latitude":"%f","id":"%d"}' % (dog['heartRate'], dog['temperature'], dog['longitude'], dog['latitude'], i)
 
         try:
             r = s.put("%s/%d" % (url, i), data=data)
@@ -57,5 +57,5 @@ while True:
         except:
             pass # Server might not be up
 
-    time.sleep(3)
+    time.sleep(1)
 

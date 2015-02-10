@@ -52,8 +52,8 @@ public class ServiceDog {
 
         dog.setHeartRate(dogUpdated.getHeartRate());
         dog.setTemperature(dogUpdated.getTemperature());
-        dog.setLocationX(dogUpdated.getLocationX());
-        dog.setLocationY(dogUpdated.getLocationY());
+        dog.setLongitude(dogUpdated.getLongitude());
+        dog.setLatitude(dogUpdated.getLatitude());
 
         return dog;
 
